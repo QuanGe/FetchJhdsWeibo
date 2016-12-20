@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   specs:
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
@@ -70,11 +70,11 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.1.0)
+    mini_portile (0.6.2)
     minitest (5.10.1)
     multi_json (1.12.1)
-    nokogiri (1.6.8.1)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.6.6.4)
+      mini_portile (~> 0.6.0)
     rack (1.6.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -148,6 +148,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)
   jquery-rails
+  nokogiri (~> 1.6.6.2)
   rails (= 4.2.6)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
