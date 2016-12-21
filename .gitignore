@@ -25,3 +25,23 @@
 Gemfile.lock
 
 Gemfile.lock
+
+.idea/.generators
+
+.idea/.rakeTasks
+
+.idea/encodings.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/runConfigurations/Development__FetchJhdsWeibo.xml
+
+.idea/runConfigurations/Production__FetchJhdsWeibo.xml
+
+.idea/runConfigurations/spec__FetchJhdsWeibo.xml
+
+.idea/runConfigurations/test__FetchJhdsWeibo.xml
+
+.idea/vcs.xml

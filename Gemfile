@@ -5,6 +5,8 @@ source "https://ruby.taobao.org/"
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+#here is this project use db ##   Supported DBs
+gem "mysql2", "~> 0.3.11", group: :mysql
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -22,10 +24,15 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+#here is this project use html parse ##
 gem 'nokogiri', "~> 1.6.6.2"
-
+#here is this project use font trans ##
 gem 'ropencc'
+# here is this project use seed data ##
+gem "seed-fu"
+
+# GitLab settings
+gem 'settingslogic'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

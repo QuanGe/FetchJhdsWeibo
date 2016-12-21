@@ -8,7 +8,7 @@ module Weibo
   class WeiboService
     class << self
 
-      def fetch_weibos(uid,page)
+      def fetch_weibos_with_up(uid,page,quick)
         Weibo::Logger.info("Action" => "正在获取用户#{uid}的第#{page}页的数据")
         url = URI.encode("http://tw.weibo.com/#{uid}/p/#{page}")
         doc = Nokogiri::HTML(open(url))
@@ -31,15 +31,23 @@ module Weibo
           created_timestamp = (Time.parse(created_time).to_f * 1000 ).to_i
           Weibo::Logger.info("==#{imgNum ? "多图" : "单图"}=#{page}/#{pagenum}====nickName:#{nickName},userIcon:#{userIcon},idstr:#{idstr},original_pic:#{original_pic},text:#{text},created_timestamp:#{created_timestamp}")
         end
-        if(page.to_i < pagenum.to_i)
-          #fetch_weibos(uid,page.to_i + 1)
+        if(page.to_i < pagenum.to_i && !quick)
+          fetch_weibos_with_up(uid,page.to_i + 1,quick)
         end
 
       end
 
-      def fetch_weibos_by_user(uid)
-        fetch_weibos(uid,1)
+      def fetch_weibos_by_user(uid,quick)
+        fetch_weibos_with_up(uid,1,quick)
       end
+
+      def fetch_weibos(quick)
+        users = Settings.weibo.user_ids
+        users.each do |user_id|
+          fetch_weibos_by_user(user_id,quick)
+        end
+      end
+
 
 
     end
