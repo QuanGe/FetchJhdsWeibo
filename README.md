@@ -9,6 +9,8 @@ html解析
 [https://github.com/psli/ropencc](https://github.com/psli/ropencc)
 mysql需要插入表情，本人用的5.5.49版本
 [https://ruby-china.org/topics/24693](https://ruby-china.org/topics/24693)
+sidekiq 
+[http://www.cnblogs.com/richard1234/p/3829074.html](http://www.cnblogs.com/richard1234/p/3829074.html)
 
 使用步骤
 设置数据库
