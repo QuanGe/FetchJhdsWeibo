@@ -31,6 +31,18 @@ gem 'ropencc'
 # here is this project use seed data ##
 gem "seed-fu"
 
+#sesion store
+gem 'redis-rails'
+gem 'redis-store'
+
+gem 'sidekiq'
+
+gem 'sinatra' # 用于使用自带的监控页面
+
+gem 'redis-namespace'
+
+# here is this project use attr_accessible ##
+gem 'protected_attributes'
 # GitLab settings
 gem 'settingslogic'
 

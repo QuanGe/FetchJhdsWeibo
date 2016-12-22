@@ -1,7 +1,14 @@
 weibo:
   user_ids: ["2661369283","5663851873"]
   cookie: ""
+  filter: "#簡畫大師#"
+
+redis:
+  redis_quene_host: localhost
+  redis_quene_port: 6379
+  redis_quene_db: 0
 
 server:
-  github_local_pos: ""
+  github_local_pos: "/Users/Shared/GitHub/QuanGe.github.io/images/jhds/weibo/"
+  page_item_num: 12
 

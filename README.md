@@ -13,13 +13,41 @@ sidekiq
 [http://www.cnblogs.com/richard1234/p/3829074.html](http://www.cnblogs.com/richard1234/p/3829074.html)
 
 使用步骤
+
 设置数据库
 bundle exec rake db:drop:all
+
 bundle exec rake db:create:all
+
 bundle exec rake db:migrate
+
 rake database:convert_to_utf8mb4
+
 初始化数据
+
 bundle exec rake db:seed_fu
+
+启动sidekiq
+
+bundle exec sidekiq -C config/sidekiq.yml
+
+停止sidekiq
+kill -s 9 $(pgrep side)
+
+
+启动redis
+
+redis-server --port 6379 &
+
+
+查看sidekiq执行情况
+
+http://localhost:3000/sidekiq/queues
+
+清除redis 里面的内容
+redis-cli flushall
+
+
 
 
 
