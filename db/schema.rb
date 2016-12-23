@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20161221083655) do
     t.integer  "followers_count",   limit: 4
     t.integer  "friends_count",     limit: 4
     t.integer  "statuses_count",    limit: 4
+    t.boolean  "sex"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end

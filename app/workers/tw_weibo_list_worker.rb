@@ -27,6 +27,7 @@ class TwWeiboListWorker
       u.location = userLoc
       u.screen_name = nickName
       u.description = userDes
+      u.sex = (userSex == "女")
       u.followers_count = userFansNum.to_i
       u.friends_count = userFollowNum.to_i
       u.statuses_count = userPublishNum.to_i

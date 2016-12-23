@@ -12,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :followers_count
       t.integer :friends_count
       t.integer :statuses_count
+      t.boolean :sex
 
       t.timestamps null: false
     end
