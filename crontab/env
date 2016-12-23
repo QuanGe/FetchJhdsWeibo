@@ -1,0 +1,6 @@
+export GEM_HOME=/Users/Shared/GitHub/FetchJhdsWeibo/
+export BUNDLER_VERSION=1.12.4
+export BUNDLE_APP_CONFIG=/Users/Shared/GitHub/FetchJhdsWeibo/
+export BUNDLE_BIN=/Users/Shared/GitHub/FetchJhdsWeibo/bin/
+export BUNDLE_PATH=/Users/Shared/GitHub/FetchJhdsWeibo/
+export BUNDLE_SILENCE_ROOT_WARNING=1

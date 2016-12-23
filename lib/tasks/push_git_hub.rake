@@ -1,14 +1,14 @@
 # coding: utf-8
-require 'nokogiri'
 require 'open3'
 namespace :weibo do
-  desc "fetch weibo and save into mysql"
+  desc "if quangelab project some thing update ,push the code"
   task :push_git_hub => :environment do
 
     def pushCode
       if($subcmd != "")
         timestr = Time.now.strftime("%Y%m%d%H%M%S")
         $subcmd.concat(" && git commit -m 'update weibo data#{timestr}' && git pull --rebase && git push")
+        $subcmd = "cd #{Settings.server.github_local_pos} && cd ../../.. && ".concat($subcmd)
         puts timestr+"开始上传微博数据#{$subcmd}"
         Open3.popen3($subcmd) do |stdin, stdout, stderr, wait_thr|
           $subcmd = ""

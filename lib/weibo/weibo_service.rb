@@ -20,6 +20,15 @@ module Weibo
         end
       end
 
+      def fetch_weibo_pics()
+
+        weibos = Status.select{ |weibo| weibo.pic_mul == true }
+        weibos.each do |weibo|
+          TwWeiboPicWorker.perform_async(weibo.user_ids,weibo.ids)
+        end
+
+      end
+
       def export_data
         weibs = Status.order("created_at_time DESC")
         index = 0

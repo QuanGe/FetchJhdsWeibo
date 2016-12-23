@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+env :GEM_PATH, ENV['GEM_PATH']
 export PATH=$PATH:/usr/local/bin
 export TZ=Asia/Shanghai
 
