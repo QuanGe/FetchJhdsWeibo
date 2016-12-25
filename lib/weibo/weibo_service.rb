@@ -9,6 +9,8 @@ module Weibo
     class << self
 
       def fetch_weibos(quick)
+        timestr = Time.now.strftime("%Y%m%d%H%M%S")
+        puts "======开始获取所有用户微博数据" + timestr
         tmp = 1
         User.all.each do |user|
           #tmp = tmp + 30
@@ -18,18 +20,22 @@ module Weibo
           # end
 
         end
+        puts "---------------------------"
       end
 
       def fetch_weibo_pics()
-
+        timestr = Time.now.strftime("%Y%m%d%H%M%S")
+        puts "======开始获取微博图片数据" + timestr
         weibos = Status.select{ |weibo| weibo.pic_mul == true }
         weibos.each do |weibo|
           TwWeiboPicWorker.perform_async(weibo.user_ids,weibo.ids)
         end
-
+        puts "---------------------------"
       end
 
       def export_data
+        timestr = Time.now.strftime("%Y%m%d%H%M%S")
+        puts "======开始导出数据" + timestr
         weibs = Status.order("created_at_time DESC")
         index = 0
         page_num = weibs.size / Settings.server.page_item_num + (weibs.size % Settings.server.page_item_num == 0 ? 0 : 1)
@@ -60,12 +66,12 @@ module Weibo
 
           strTmp = strTmp + (index == (Settings.server.page_item_num - 1) ? "]" : ",")
           if index == (Settings.server.page_item_num - 1)
-            puts "===========第#{page_num-page_index-1}页的数据====================="
+            #puts "===========第#{page_num-page_index-1}页的数据====================="
             aFile = File.new("#{Settings.server.github_local_pos}weibo_#{page_num-page_index-1}.txt","w")
             aFile.print strTmp
             aFile.close
-            puts strTmp
-            puts "================================"
+            #puts strTmp
+            #puts "================================"
             strTmp = "["
             page_index = page_index + 1
 
@@ -77,18 +83,18 @@ module Weibo
         end
 
         if(strTmp != "[")
-          puts "===========第#{page_num-page_index-1}页的数据====================="
+          #puts "===========第#{page_num-page_index-1}页的数据====================="
           strTmp = strTmp[0,strTmp.length-1]
           strTmp = strTmp +"]"
           aFile = File.new("#{Settings.server.github_local_pos}weibo_#{page_num-page_index-1}.txt","w")
           aFile.print strTmp
           aFile.close
-          puts strTmp
-          puts "================================"
+          #puts strTmp
+          #puts "================================"
 
         end
 
-
+        puts "---------------------------"
       end
 
     end

@@ -26,6 +26,8 @@ crontab -l
 sudo chmod 777 /Users/Shared/GitHub/FetchJhdsWeibo/crontab/export_to_quangelab.sh
 
 
+查看rvm 安装到哪个文件夹 echo $GEM_PATH
+
 使用步骤
 
 设置数据库

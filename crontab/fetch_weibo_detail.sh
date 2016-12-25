@@ -11,7 +11,7 @@ echo "*********************************"
 
 cd /Users/Shared/GitHub/FetchJhdsWeibo
 source /Users/git/.rvm/environments/ruby-2.1.8
-RAILS_ENV=development bundle exec rake weibo:export_to_quangelab
+RAILS_ENV=development bundle exec rake weibo:fetch_weibo_detail
 
 echo "*********************************"
 echo "*********************************"

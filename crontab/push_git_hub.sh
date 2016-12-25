@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 export PATH=$PATH:/usr/local/bin
 export TZ=Asia/Shanghai
 
@@ -9,7 +10,8 @@ echo "*********************************"
 echo "*********************************"
 
 cd /Users/Shared/GitHub/FetchJhdsWeibo
-RAILS_ENV=production bundle exec rake weibo:export_to_quangelab
+source /Users/git/.rvm/environments/ruby-2.1.8
+RAILS_ENV=development bundle exec rake weibo:push_git_hub
 
 echo "*********************************"
 echo "*********************************"
