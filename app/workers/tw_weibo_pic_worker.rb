@@ -15,8 +15,12 @@ class TwWeiboPicWorker
 
     imgsIds = ""
     imgs.each do |img|
-      imgsIds = imgsIds + img["src"].split("/").last.split(".").first
-      imgsIds = imgsIds +  ((img == imgs.last ) ? "" : ",")
+      ids = img["src"].split("/").last.split(".").first
+      if !(imgsIds.include?ids)
+        imgsIds = imgsIds + ids
+        imgsIds = imgsIds +  ((img == imgs.last ) ? "" : ",")
+      end
+
     end
 
     if Status.find_by_ids(sid).present?
@@ -24,8 +28,10 @@ class TwWeiboPicWorker
       weibo = Status.find_by_ids(sid)
       weibo.pic_ids = imgsIds
       weibo.pic_mul = false
+
       weibo.save
-      #puts "##############{sid}##########{imgsIds}################"
+      Weibo::Logger.info("##############{sid}##########{imgsIds}################")
+      puts "##############{sid}##########{imgsIds}################"
 
     end
 

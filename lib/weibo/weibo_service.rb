@@ -13,8 +13,8 @@ module Weibo
         puts "======开始获取所有用户微博数据" + timestr
         tmp = 1
         User.all.each do |user|
-          #tmp = tmp + 30
-          TwWeiboListWorker.perform_async(user.ids,1,quick)
+          tmp = tmp + 5
+          TwWeiboListWorker.perform_in(tmp.seconds,user.ids,1,quick)
           # if user.ids == "2216172153"
           #   TwWeiboListWorker.perform_in(tmp.seconds,user.ids,1,quick)
           # end
@@ -27,8 +27,10 @@ module Weibo
         timestr = Time.now.strftime("%Y%m%d%H%M%S")
         puts "======开始获取微博图片数据" + timestr
         weibos = Status.select{ |weibo| weibo.pic_mul == true }
+        tmp = 1
         weibos.each do |weibo|
-          TwWeiboPicWorker.perform_async(weibo.user_ids,weibo.ids)
+          tmp = tmp + 5
+          TwWeiboPicWorker.perform_in(tmp.seconds,weibo.user_ids,weibo.ids)
         end
         puts "---------------------------"
       end
@@ -36,7 +38,19 @@ module Weibo
       def export_data
         timestr = Time.now.strftime("%Y%m%d%H%M%S")
         puts "======开始导出数据" + timestr
-        weibs = Status.order("created_at_time DESC")
+        tops = Status.find_by_sql("select * from (SELECT * FROM jhds_weibo_development.statuses  order by jhds_weibo_development.statuses.created_at_time desc) as a group by a.user_ids order by a.created_at_time desc ")
+        allweibs = Status.order("created_at_time DESC")
+        weibs = Array.new
+        tops.each do |weibo|
+            weibs.push(weibo)
+        end
+        allweibs.each do |weibo|
+          if !(tops.include?weibo)
+            weibs.push(weibo)
+          end
+        end
+
+
         index = 0
         page_num = weibs.size / Settings.server.page_item_num + (weibs.size % Settings.server.page_item_num == 0 ? 0 : 1)
 

@@ -5,9 +5,12 @@ namespace :weibo do
   task :push_git_hub => :environment do
 
     def pushCode
+      puts $subcmd
       if($subcmd != "")
         timestr = Time.now.strftime("%Y%m%d%H%M%S")
-        $subcmd.concat(" && git commit -m 'update weibo data#{timestr}' && git pull --rebase && git push")
+        if ($subcmd == "git add .")
+          $subcmd.concat(" && git commit -m 'update weibo data#{timestr}' && git pull --rebase && git push")
+        end
         $subcmd = "cd #{Settings.server.github_local_pos} && cd ../../.. && ".concat($subcmd)
         puts timestr+"开始上传微博数据#{$subcmd}"
         Open3.popen3($subcmd) do |stdin, stdout, stderr, wait_thr|
@@ -33,15 +36,18 @@ namespace :weibo do
 
             if(line.include?"modified:   ")
               if ($subcmd == "")
+
                 $subcmd.concat("git add .")
               end
             elsif(line.include?"new file:   ")
               if  ($subcmd == "")
+
                 $subcmd.concat("git add .")
               end
-            elsif (line.include?".") && ($subcmd == "")
+            elsif (line.include?".") && ($subcmd == "") && !(line.include?"commits.")
               $subcmd.concat("git add .")
-            else
+            elsif (line.include?"to publish your local commits") && ($subcmd == "")
+              $subcmd.concat("git push")
 
             end
 

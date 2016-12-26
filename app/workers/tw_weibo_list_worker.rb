@@ -22,16 +22,23 @@ class TwWeiboListWorker
     userFollowNum = doc.at_css(".followNum").at_css("strong").text
     userFansNum = doc.at_css(".fansNum").at_css("strong").text
 
+    puts "==========#{uid}====#{nickName}==的微博列表获取===#{weibos.size}条===="
+    Weibo::Logger.info("==========#{uid}====#{nickName}==的微博列表获取错误===#{weibos.size}条====")
+
     if (User.find_by_ids(uid).present?)
       u = User.find_by_ids(uid)
-      u.location = userLoc
-      u.screen_name = nickName
-      u.description = userDes
-      u.sex = (userSex == "女")
-      u.followers_count = userFansNum.to_i
-      u.friends_count = userFollowNum.to_i
-      u.statuses_count = userPublishNum.to_i
-      u.save
+      if nickName.present? && userPublishNum.present?
+        puts "==========#{uid}=用户信息有变化============="
+        u.location = userLoc
+        u.screen_name = nickName
+        u.description = userDes
+        u.sex = (userSex == "女")
+        u.followers_count = userFansNum.to_i
+        u.friends_count = userFollowNum.to_i
+        u.statuses_count = userPublishNum.to_i
+        u.save
+      end
+
     end
 
 
@@ -47,8 +54,11 @@ class TwWeiboListWorker
         original_pic = img.present? ? img['data-original'] : ""
         text = Ropencc.conv('tw2s.json',weibo.css("div").select{|content| content['uid'] == uid}.first.at_css("p").at_css("a")['title'].strip)
         text = text.gsub('\n','')
+        text = text.gsub(/<\/?.*?>/, "")
         created_time = weibo.at_css(".datetime_stamp").text
         created_timestamp = (Time.parse(created_time).to_f).to_i
+
+        puts "======#{idstr}====#{text}=============="
         unless Status.find_by_ids(idstr).present?
           Status.new(ids:idstr,text:text,pic_ids:(original_pic == "" ) ? "" : original_pic.split("/").last.split(".").first ,user_ids:"#{uid}",created_at_time:created_timestamp,pic_mul:imgNum).save
           #Weibo::Logger.info("*********新获取数据==#{imgNum ? "多图" : "单图"}=#{page}/#{pagenum}====user_id:#{uid},nickName:#{nickName},userIcon:#{userIcon},idstr:#{idstr},original_pic:#{original_pic},text:#{text},created_timestamp:#{created_timestamp}")

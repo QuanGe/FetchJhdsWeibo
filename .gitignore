@@ -45,3 +45,5 @@ Gemfile.lock
 .idea/runConfigurations/test__FetchJhdsWeibo.xml
 
 .idea/vcs.xml
+
+log/.keep

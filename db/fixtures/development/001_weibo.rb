@@ -45,7 +45,7 @@ def fetch_every_page(page,all)
       end
 
       puts " #{status['nickName']} **** #{status['text']}"
-      Status.new(ids:status['idstr'],text:status['text'],pic_ids:ids,user_ids:status['userId'],created_at_time:status['created_timestamp'],pic_mul:status['pic_ids'].size>1).save
+      Status.new(ids:status['idstr'],text:status['text'],pic_ids:ids,user_ids:status['userId'],created_at_time:status['created_timestamp'],pic_mul:false).save
       unless (User.find_by_ids(status['userId']).present?)
         User.new(ids:status['userId'],screen_name:status['nickName'],profile_image_url:status['userIcon']).save
       end
