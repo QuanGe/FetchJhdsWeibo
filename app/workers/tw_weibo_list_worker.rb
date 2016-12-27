@@ -31,6 +31,7 @@ class TwWeiboListWorker
         puts "==========#{uid}=用户信息有变化============="
         u.location = userLoc
         u.screen_name = nickName
+        u.profile_image_url = userIcon
         u.description = userDes
         u.sex = (userSex == "女")
         u.followers_count = userFansNum.to_i

@@ -38,14 +38,17 @@ namespace :weibo do
               if ($subcmd == "")
 
                 $subcmd.concat("git add .")
+                puts line
               end
             elsif(line.include?"new file:   ")
               if  ($subcmd == "")
 
                 $subcmd.concat("git add .")
+                puts line
               end
-            elsif (line.include?".") && ($subcmd == "") && !(line.include?"commits.")
+            elsif (line.include?".") && ($subcmd == "") && !(line.include?"commits.") && !(line.include?"You are currently rebasing branch") && !(line.include?"Your branch is ahead of")
               $subcmd.concat("git add .")
+              puts line
             elsif (line.include?"to publish your local commits") && ($subcmd == "")
               $subcmd.concat("git push")
 
