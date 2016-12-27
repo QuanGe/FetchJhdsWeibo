@@ -23,7 +23,7 @@ class TwWeiboListWorker
     userFansNum = doc.at_css(".fansNum").at_css("strong").text
 
     puts "==========#{uid}====#{nickName}==的微博列表获取===#{weibos.size}条===="
-    Weibo::Logger.info("==========#{uid}====#{nickName}==的微博列表获取错误===#{weibos.size}条====")
+    Weibo::Logger.info("==========#{uid}====#{nickName}==的微博列表获取===#{weibos.size}条====")
 
     if (User.find_by_ids(uid).present?)
       u = User.find_by_ids(uid)

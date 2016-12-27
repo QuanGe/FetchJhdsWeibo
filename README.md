@@ -25,6 +25,11 @@ crontab -e
 crontab -l
 sudo chmod 777 /Users/Shared/GitHub/FetchJhdsWeibo/crontab/export_to_quangelab.sh
 
+邮件
+
+[http://www.jianshu.com/p/a1597a7eb722](http://www.jianshu.com/p/a1597a7eb722)
+[https://ruby-china.org/topics/8918](https://ruby-china.org/topics/8918)
+[https://ruby-china.org/topics/8233](https://ruby-china.org/topics/8233)
 
 查看rvm 安装到哪个文件夹 echo $GEM_PATH
 
