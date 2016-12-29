@@ -1,6 +1,7 @@
 weibo:
   user_ids: ["2661369283","5663851873"]
   cookie: ""
+  api_access_token : ""
   filter: "#簡畫大師#"
 
 redis:
@@ -11,3 +12,13 @@ redis:
 server:
   github_local_pos: "/Users/Shared/GitHub/QuanGe.github.io/images/jhds/weibo/"
   page_item_num: 12
+
+email_config:
+  address: "smtp.163.com"
+  port: 465
+  ssl: true
+  domain: "163.com"
+  authentication: "login"
+  user_name: "zhang_ru_quan@163.com"
+  password: ""
+  email_from: zhang_ru_quan@163.com

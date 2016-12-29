@@ -9,7 +9,7 @@ class ApiWeiboNumWorker
 
   puts "===============开始获取微博数目=#{sids}====================="
 
-    urlstr = "https://api.weibo.com/2/statuses/count.json?ids=#{sids}&access_token="
+    urlstr = "https://api.weibo.com/2/statuses/count.json?ids=#{sids}&access_token=#{Settings.weibo.api_access_token}"
     urlstr = URI.escape(urlstr)
     url = URI.parse(urlstr)
     http = Net::HTTP.new(url.host, url.port)

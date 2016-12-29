@@ -12,7 +12,7 @@ class ApiWeiboCommentWorker
     lihai =  u.sex ? "姐" : "哥"
     puts "===============开始评论微博#{sid}======================"
     comment = "厉害了word#{lihai},#{u.screen_name}画的不错，加油！已于#{Time.now.strftime("%Y-%m-%d %H:%M:%S")}收录到简画大师App数据中，如果在使用时遇到问题可以私信我。"
-    urlstr = "https://api.weibo.com/2/comments/create.json?id=#{sid}&comment=#{comment}&access_token="
+    urlstr = "https://api.weibo.com/2/comments/create.json?id=#{sid}&comment=#{comment}&access_token=#{Settings.weibo.api_access_token}"
     urlstr = URI.escape(urlstr)
     url = URI.parse(urlstr)
     http = Net::HTTP.new(url.host, url.port)
