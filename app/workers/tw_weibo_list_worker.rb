@@ -58,9 +58,12 @@ class TwWeiboListWorker
         text = text.gsub(/<\/?.*?>/, "")
         created_time = weibo.at_css(".datetime_stamp").text
         created_timestamp = (Time.parse(created_time).to_f).to_i
-
+        low_words, high_words = Word.match(text)
         puts "======#{idstr}====#{text}=============="
-        unless Status.find_by_ids(idstr).present?
+        if !Status.find_by_ids(idstr).present? && original_pic != "" && !low_words.present? && !high_words.present?
+          ApiWeiboCommentWorker.perform_async(uid,idstr)
+          Emailer.mailer("zhang_ru_quan@163.com",text,nickName).deliver_now
+
           Status.new(ids:idstr,text:text,pic_ids:(original_pic == "" ) ? "" : original_pic.split("/").last.split(".").first ,user_ids:"#{uid}",created_at_time:created_timestamp,pic_mul:imgNum).save
           #Weibo::Logger.info("*********新获取数据==#{imgNum ? "多图" : "单图"}=#{page}/#{pagenum}====user_id:#{uid},nickName:#{nickName},userIcon:#{userIcon},idstr:#{idstr},original_pic:#{original_pic},text:#{text},created_timestamp:#{created_timestamp}")
         end

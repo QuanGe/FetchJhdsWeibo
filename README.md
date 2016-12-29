@@ -27,7 +27,7 @@ sudo chmod 777 /Users/Shared/GitHub/FetchJhdsWeibo/crontab/export_to_quangelab.s
 
 邮件
 
-[http://www.jianshu.com/p/a1597a7eb722](http://www.jianshu.com/p/a1597a7eb722)
+[http://guides.ruby-china.org/action_mailer_basics.html](http://guides.ruby-china.org/action_mailer_basics.html)
 [https://ruby-china.org/topics/8918](https://ruby-china.org/topics/8918)
 [https://ruby-china.org/topics/8233](https://ruby-china.org/topics/8233)
 

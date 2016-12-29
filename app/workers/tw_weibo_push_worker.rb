@@ -4,7 +4,7 @@ class TwWeiboPushWorker
   include Sidekiq::Worker
 
   def perform
-
+    #Emailer.mailer("zhang_ru_quan@163.com","测试部署发邮件","简画大师").deliver_now
     pushCode(git_status())
 
   end

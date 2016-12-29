@@ -11,4 +11,3 @@ redis:
 server:
   github_local_pos: "/Users/Shared/GitHub/QuanGe.github.io/images/jhds/weibo/"
   page_item_num: 12
-

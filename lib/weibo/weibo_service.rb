@@ -35,6 +35,48 @@ module Weibo
         puts "---------------------------"
       end
 
+      def comment_every_weibo()
+        timestr = Time.now.strftime("%Y%m%d%H%M%S")
+        puts "======开始评论每条微博" + timestr
+        weibos = Status.select{ |weibo| weibo.ids != "4056967611286590" && weibo.pic_ids != ""}
+        tmp = 1
+        weibos.each do |weibo|
+          tmp = tmp + 30
+          ApiWeiboCommentWorker.perform_in(tmp.seconds,weibo.user_ids,weibo.ids)
+        end
+        puts "---------------------------"
+      end
+
+      def fetch_weibo_num
+        puts "===============开始获取微博数目======================"
+        idsArray = Array.new
+        ids = ""
+        index = 0
+        Status.all.each  do |weibo|
+          ids = ids + weibo.ids
+          ids = ids + (index == (Settings.server.page_item_num - 1) ? "" : ",")
+          if index == (Settings.server.page_item_num - 1)
+            idsArray.push(ids)
+            ids = ""
+          end
+
+          index = (index == (Settings.server.page_item_num - 1)) ? 0 : index +1
+        end
+        if(ids != "")
+          ids = ids[0,ids.length-1]
+          idsArray.push(ids)
+        end
+
+        tmp = 1
+        idsArray.each do |ids|
+          tmp = tmp + 10
+          ApiWeiboNumWorker.perform_in(tmp.seconds,ids)
+        end
+
+      end
+
+
+
       def export_data
         timestr = Time.now.strftime("%Y%m%d%H%M%S")
         puts "======开始导出数据" + timestr

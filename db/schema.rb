@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221083655) do
+ActiveRecord::Schema.define(version: 20161229013500) do
 
   create_table "statuses", force: :cascade do |t|
     t.string   "ids",             limit: 255
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 20161221083655) do
     t.boolean  "sex"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "words", force: :cascade do |t|
+    t.string   "text",       limit: 255
+    t.string   "level",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end

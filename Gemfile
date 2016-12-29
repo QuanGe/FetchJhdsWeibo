@@ -46,6 +46,11 @@ gem 'protected_attributes'
 # GitLab settings
 gem 'settingslogic'
 
+
+# HAML
+gem "haml-rails"
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
