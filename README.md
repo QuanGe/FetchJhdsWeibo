@@ -1,5 +1,7 @@
 ubuntu 14.04LTS
-sudo apt-get install mysql-server 默认安装5.5.53
+sudo apt-get purge mysql-server-5.5 mysql-client-5.5
+sudo apt-get autoremove
+sudo apt-get install mysql-server-5.5 mysql-client-5.5 默认安装5.5.53
 sudo apt-get install redis-server
 sudo apt-get install libmysqlclient-dev
 
@@ -7,6 +9,7 @@ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB8
 curl -L https://raw.githubusercontent.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash -s stable
 source ~/.rvm/scripts/rvm
 rvm install 2.1.8
+gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
 gem install bundler
 gem install rails
 
