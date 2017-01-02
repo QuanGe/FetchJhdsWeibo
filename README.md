@@ -1,7 +1,7 @@
 ubuntu 16.04LTS
 
 ### 环境配置
-###### opencc 用1.0.4
+#### opencc 用1.0.4
 
 https://launchpad.net/ubuntu/+archive/primary/+files/libopencc2-data_1.0.4-4_all.deb
 
@@ -11,7 +11,7 @@ https://launchpad.net/ubuntu/+archive/primary/+files/opencc_1.0.4-4_amd64.deb
 
 下载以后dpkg -i 依次安装
 
-###### mysql相关
+#### mysql相关
 mysql安装5.5
 [http://quangelab.com/ubuntu-mysql/](http://quangelab.com/ubuntu-mysql/)
 安装以后如果执行rake命令 报错误 Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock'，修改database.yml。socket: /tmp/mysql.sock
@@ -19,7 +19,8 @@ mysql安装5.5
 sudo apt-get install libmysqlclient-dev
 
 
-###### 其他
+#### 其他
+
 sudo apt-get install redis-server
 
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
@@ -48,6 +49,10 @@ git config --global user.email "zhang_ru_quan@163.com"
 
 git config --global push.default simple
 
+#### 开机启动
+
+现将bash文件拷贝到/etc/init.d里面
+sudo update-rc.d -f mysql.server defaults 
 
 ### 相关文档
 
@@ -76,11 +81,13 @@ crontab
 crontab weibo
 
 weibo里面的内容如下
-* * * * * /Users/Shared/GitHub/FetchJhdsWeibo/crontab/export_to_quangelab.sh >> /Users/Shared/GitHub/FetchJhdsWeibo/log/export_to_quangelab.log 2>&1
 
-* * * * * /Users/Shared/GitHub/FetchJhdsWeibo/crontab/push_git_hub.sh >> /Users/Shared/GitHub/FetchJhdsWeibo/log/push_git_hub.log 2>&1
+*/1 * * * * /Users/Shared/GitHub/FetchJhdsWeibo/crontab/export_to_quangelab.sh >> /Users/Shared/GitHub/FetchJhdsWeibo/log/export_to_quangelab.log 2>&1
+
+*/1 * * * * /Users/Shared/GitHub/FetchJhdsWeibo/crontab/push_git_hub.sh >> /Users/Shared/GitHub/FetchJhdsWeibo/log/push_git_hub.log 2>&1
 
 */30 * * * * /Users/Shared/GitHub/FetchJhdsWeibo/crontab/fetch_users_weibo.sh >> /Users/Shared/GitHub/FetchJhdsWeibo/log/fetch_users_weibo.log 2>&1
+
 */35 * * * * /Users/Shared/GitHub/FetchJhdsWeibo/crontab/fetch_weibo_detail.sh >> /Users/Shared/GitHub/FetchJhdsWeibo/log/fetch_weibo_detail.log 2>&1
 
 crontab -r 清楚定时任务
