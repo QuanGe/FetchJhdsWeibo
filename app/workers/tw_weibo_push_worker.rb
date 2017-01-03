@@ -38,13 +38,13 @@ class TwWeiboPushWorker
 
       subcmd = ""
       stdout.each_line { |line|
-        if (line =~ /[^\.]+\.[^\.]/ ) && (subcmd == "")
+        puts "line = #{line.to_s} 判断line =~ /[^\.]+\.[a-zA-Z0-9]+/ )的值为 #{(line.to_s =~ /[^\.]+\.[a-zA-Z0-9]+/ )} 并且subcmd=#{subcmd}"
+        if (line.to_s =~ /[^\.]+\.[a-zA-Z0-9]+/ ) && (subcmd == "")
           subcmd.concat("git add .")
-          puts line
-          # elsif (line.include?"to publish your local commits") && (subcmd == "")
-          #   subcmd.concat("git push")
-          #
-          # end
+          puts line.to_s
+        elsif (line.to_s.include?"to publish your local commits") && (subcmd == "")
+          subcmd.concat("git push")
+          puts line.to_s
         end
 
       }
