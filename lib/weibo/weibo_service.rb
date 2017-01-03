@@ -76,6 +76,76 @@ module Weibo
       end
 
 
+      def fetch_from_github(sync)
+        urlstr = "http://quangelab.com/images/jhds/weibo/weibo_num.txt"
+        urlstr = URI.escape(urlstr)
+        url = URI.parse(urlstr)
+        http = Net::HTTP.new(url.host, url.port)
+        request = Net::HTTP::Get.new(url.request_uri)
+        resp = http.start {|http|
+          http.request(request)
+        }
+
+        if(resp.code.to_s == "200")
+          fetch_every_page(resp.body.to_i-1,resp.body.to_i,sync)
+        end
+
+
+      end
+
+      def fetch_every_page(page,all,sync)
+        urlstr = "http://quangelab.com/images/jhds/weibo/weibo_#{page}.txt"
+        urlstr = URI.escape(urlstr)
+        url = URI.parse(urlstr)
+        http = Net::HTTP.new(url.host, url.port)
+        request = Net::HTTP::Get.new(url.request_uri)
+        resp = http.start {|http|
+          http.request(request)
+        }
+
+        not_in_mysql = true
+
+        if(resp.code.to_s == "200")
+          json_temp_str = JSON.parse(resp.body)
+          json_temp_str.each do |status|
+            ids = ""
+            status['pic_ids'].each do |id|
+              ids = ids+id
+              if id != status['pic_ids'].last
+                ids = ids+","
+              end
+            end
+
+
+            if sync
+              not_in_mysql = Status.find_by_ids(status['idstr']).blank?
+              break unless not_in_mysql
+            end
+
+            if not_in_mysql
+              puts " #{status['nickName']} **** #{status['text']}"
+              Status.new(ids:status['idstr'],text:status['text'],pic_ids:ids,user_ids:status['userId'],created_at_time:status['created_timestamp'],pic_mul:false).save
+              unless (User.find_by_ids(status['userId']).present?)
+                User.new(ids:status['userId'],screen_name:status['nickName'],profile_image_url:status['userIcon']).save
+              end
+            end
+
+
+          end
+        end
+
+        if(page >0 && not_in_mysql)
+          page = page -1
+          puts "=======================下面是第#{page}页================"
+          fetch_every_page(page,all,sync)
+        end
+      end
+
+
+
+      def sync_data
+        fetch_from_github(true)
+      end
 
       def export_data
         timestr = Time.now.strftime("%Y%m%d%H%M%S")

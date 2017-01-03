@@ -38,28 +38,13 @@ class TwWeiboPushWorker
 
       subcmd = ""
       stdout.each_line { |line|
-        if (!line.include?"On branch master") && (!line.include?" to unstage") && (!line.include?" update what will be committed") && (!line.include?"Your branch is up") && (!line.include?"Changes not staged") && (!line.include?"include in what will be committed") && (!line.include?"Untracked files") && (!line.include?"no changes added t") && (!line.include?"git checkout --")
-
-          if(line.include?"modified:   ")
-            if (subcmd == "")
-
-              subcmd.concat("git add .")
-              puts line
-            end
-          elsif(line.include?"new file:   ")
-            if  (subcmd == "")
-
-              subcmd.concat("git add .")
-              puts line
-            end
-          elsif (line.include?".") && (subcmd == "") && !(line.include?"commits.") && !(line.include?"You are currently rebasing branch") && !(line.include?"Your branch is ahead of")
-            subcmd.concat("git add .")
-            puts line
-          elsif (line.include?"to publish your local commits") && (subcmd == "")
-            subcmd.concat("git push")
-
-          end
-
+        if (line =~ /[^\.]+\.[^\.]/ ) && (subcmd == "")
+          subcmd.concat("git add .")
+          puts line
+          # elsif (line.include?"to publish your local commits") && (subcmd == "")
+          #   subcmd.concat("git push")
+          #
+          # end
         end
 
       }
