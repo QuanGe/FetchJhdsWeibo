@@ -14,7 +14,7 @@ class TwWeiboPushWorker
     if(subcmd != "")
       timestr = Time.now.strftime("%Y%m%d%H%M%S")
       if (subcmd == "git add .")
-        subcmd.concat(" && git commit -m 'update weibo data#{timestr}' && git pull --rebase && git push")
+        subcmd.concat(" && git commit -m 'update weibo data#{timestr}' && git pull && git push")
       end
       subcmd = "cd #{Settings.server.github_local_pos} && cd ../../.. && ".concat(subcmd)
       puts timestr+"开始上传微博数据#{subcmd}"
@@ -49,8 +49,10 @@ class TwWeiboPushWorker
 
       }
 
-      return subcmd
+
 
     end
+
+    return subcmd
   end
 end

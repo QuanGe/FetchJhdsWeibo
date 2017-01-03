@@ -77,4 +77,5 @@ class TwWeiboListWorker
     end
 
   end
+
 end
