@@ -5,7 +5,7 @@ require "ropencc"
 
 class TwWeiboListWorker
   include Sidekiq::Worker
-
+  sidekiq_options retry: false
   def perform(uid,page,quick)
     #Weibo::Logger.info("Action" => "正在获取用户#{uid}的第#{page}页的数据")
     url = page == 1 ? URI.encode("http://tw.weibo.com/#{uid}/") : URI.encode("http://tw.weibo.com/#{uid}/p/#{page}")

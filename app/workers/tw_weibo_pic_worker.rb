@@ -5,7 +5,7 @@ require "ropencc"
 
 class TwWeiboPicWorker
   include Sidekiq::Worker
-
+  sidekiq_options retry: false
   def perform(uid,sid)
     #Weibo::Logger.info("Action" => "正在获取用户#{uid}的#{sid}详情页的数据")
     url = URI.encode("http://tw.weibo.com/#{uid}/#{sid}")

@@ -4,7 +4,7 @@ require 'json'
 
 class ApiWeiboNumWorker
   include Sidekiq::Worker
-
+  sidekiq_options retry: false
   def perform(sids)
 
   puts "===============开始获取微博数目=#{sids}====================="

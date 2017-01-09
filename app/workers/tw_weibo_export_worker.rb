@@ -2,7 +2,7 @@ require 'open3'
 
 class TwWeiboExportWorker
   include Sidekiq::Worker
-
+  sidekiq_options retry: false
   def perform
     #Emailer.mailer("zhang_ru_quan@163.com","测试部署发邮件","简画大师").deliver_now
     export_data(git_status())

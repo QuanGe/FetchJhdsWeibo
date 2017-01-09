@@ -6,7 +6,7 @@ require 'json'
 
 class ApiWeiboCommentWorker
   include Sidekiq::Worker
-
+  sidekiq_options retry: false
   def perform(uid,sid)
     u = User.find_by_ids(uid)
     lihai =  u.sex ? "姐" : "哥"
