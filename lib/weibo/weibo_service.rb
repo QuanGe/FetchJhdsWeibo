@@ -23,6 +23,14 @@ module Weibo
         puts "---------------------------"
       end
 
+      def fetch_weibo_favorites
+        ApiWeiboFavoritesWorker.perform_async
+      end
+
+      def fetch_weibo_friends_weibos
+        ApiWeiboFriendsWorker.perform_async
+      end
+
       def fetch_weibo_pics()
         timestr = Time.now.strftime("%Y%m%d%H%M%S")
         puts "======开始获取微博图片数据" + timestr
