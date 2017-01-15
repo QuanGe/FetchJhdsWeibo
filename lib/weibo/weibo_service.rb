@@ -132,6 +132,7 @@ module Weibo
 
             if not_in_mysql
               puts " #{status['nickName']} **** #{status['text']}"
+              Weibo::Logger.info("#{status['nickName']} **** #{status['text']}")
               Status.new(ids:status['idstr'],text:status['text'],pic_ids:ids,user_ids:status['userId'],created_at_time:status['created_timestamp'],pic_mul:false).save
               unless (User.find_by_ids(status['userId']).present?)
                 User.new(ids:status['userId'],screen_name:status['nickName'],profile_image_url:status['userIcon']).save
@@ -145,6 +146,7 @@ module Weibo
         if(page >0 )
           page = page -1
           puts "=======================下面是第#{page}页================"
+          Weibo::Logger.info("=======================下面是第#{page}页================")
           fetch_every_page(page,all,sync)
         end
       end

@@ -11,13 +11,16 @@ class TwWeiboExportWorker
 
   def export_data (behind)
     puts "当前代码是不是比较落后：#{behind}"
+    Weibo::Logger.info("当前代码是不是比较落后：#{behind}")
     if(behind )
       timestr = Time.now.strftime("%Y%m%d%H%M%S")
       subcmd = "cd #{Settings.server.github_local_pos} && cd ../../.. && git pull "
       puts " ========#{timestr}=======开始更新来自github的微博数据#{subcmd}============="
+      Weibo::Logger.info("========#{timestr}=======开始更新来自github的微博数据#{subcmd}=============")
       Open3.popen3(subcmd) do |stdin, stdout, stderr, wait_thr|
         timestr = Time.now.strftime("%Y%m%d%H%M%S")
         puts " ========#{timestr}=======导出数据库中数据============="
+        Weibo::Logger.info("========#{timestr}=======导出数据库中数据=============")
         Weibo::WeiboService.sync_data
         Weibo::WeiboService.export_data
       end
