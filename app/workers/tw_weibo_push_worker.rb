@@ -10,6 +10,7 @@ class TwWeiboPushWorker
   end
 
   def pushCode (subcmd)
+    Weibo::Logger.info("TwWeiboPushWorker::::::::::::::::::::#{subcmd}")
     puts subcmd
     if(subcmd != "")
       timestr = Time.now.strftime("%Y%m%d%H%M%S")
@@ -18,16 +19,18 @@ class TwWeiboPushWorker
       end
       subcmd = "cd #{Settings.server.github_local_pos} && cd ../../.. && ".concat(subcmd)
       puts timestr+"开始上传微博数据#{subcmd}"
+      Weibo::Logger.info("TwWeiboPushWorker::::::::::::::::::::#{timestr}开始上传微博数据#{subcmd}")
       Open3.popen3(subcmd) do |stdin, stdout, stderr, wait_thr|
         subcmd = ""
         stdout.each_line { |line|
           puts line
+          Weibo::Logger.info("TwWeiboPushWorker::::::::::::::::::::#{line}")
         }
         #puts "上传成功"
       end
     else
       puts "没有数据更新"
-
+      Weibo::Logger.info("TwWeiboPushWorker::::::::::::::::::::没有数据更新")
     end
 
   end
@@ -38,13 +41,16 @@ class TwWeiboPushWorker
 
       subcmd = ""
       stdout.each_line { |line|
+        Weibo::Logger.info("line = #{line.to_s} 判断line =~ /[^\.]+\.[a-zA-Z0-9]+/ )的值为 #{(line.to_s =~ /[^\.]+\.[a-zA-Z0-9]+/ )} 并且subcmd=#{subcmd}")
         puts "line = #{line.to_s} 判断line =~ /[^\.]+\.[a-zA-Z0-9]+/ )的值为 #{(line.to_s =~ /[^\.]+\.[a-zA-Z0-9]+/ )} 并且subcmd=#{subcmd}"
         if (line.to_s =~ /[^\.]+\.[a-zA-Z0-9]+/ ) && (subcmd == "")
           subcmd.concat("git add .")
           puts line.to_s
+          Weibo::Logger.info("TwWeiboPushWorker::::::::::::::::::::#{line.to_s}")
         elsif (line.to_s.include?"to publish your local commits") && (subcmd == "")
           subcmd.concat("git push")
           puts line.to_s
+          Weibo::Logger.info("TwWeiboPushWorker::::::::::::::::::::#{line.to_s}")
         end
 
       }
