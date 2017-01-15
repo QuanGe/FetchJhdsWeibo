@@ -127,7 +127,7 @@ module Weibo
 
             if sync
               not_in_mysql = Status.find_by_ids(status['idstr']).blank?
-              break unless not_in_mysql
+
             end
 
             if not_in_mysql
@@ -142,7 +142,7 @@ module Weibo
           end
         end
 
-        if(page >0 && not_in_mysql)
+        if(page >0 )
           page = page -1
           puts "=======================下面是第#{page}页================"
           fetch_every_page(page,all,sync)
