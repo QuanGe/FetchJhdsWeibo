@@ -34,6 +34,8 @@ class TwWeiboExportWorker
   end
   def git_status
     cd = "cd #{Settings.server.github_local_pos} && cd ../../.. && git fetch && git status "
+    puts cd
+    Weibo::Logger.info(cd)
     behind = false
     Open3.popen3(cd) do |stdin, stdout, stderr, wait_thr|
       puts "git fetch && git status 开始"
