@@ -37,7 +37,7 @@ class TwWeiboExportWorker
     behind = false
     Open3.popen3(cd) do |stdin, stdout, stderr, wait_thr|
       stdout.each_line { |line|
-        if (line.to_s.include?"Your branch is behind")
+        if (line.to_s.include?"Your branch is behind") || (line.to_s.include?"您的分支落后")
           behind =true
           puts line.to_s
           Weibo::Logger.info("#{line.to_s}")
