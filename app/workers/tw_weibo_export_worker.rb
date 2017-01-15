@@ -28,7 +28,7 @@ class TwWeiboExportWorker
       Weibo::WeiboService.export_data
       timestr = Time.now.strftime("%Y%m%d%H%M%S")
       puts "==============#{timestr}=============github服务器没有更新直接导出数据"
-
+      Weibo::Logger.info("==============#{timestr}=============github服务器没有更新直接导出数据")
     end
 
   end
@@ -40,6 +40,7 @@ class TwWeiboExportWorker
         if (line.to_s.include?"Your branch is behind")
           behind =true
           puts line.to_s
+          Weibo::Logger.info("#{line.to_s}")
         end
 
       }
