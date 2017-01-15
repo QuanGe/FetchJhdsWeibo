@@ -36,7 +36,11 @@ class TwWeiboExportWorker
     cd = "cd #{Settings.server.github_local_pos} && cd ../../.. && git fetch && git status "
     behind = false
     Open3.popen3(cd) do |stdin, stdout, stderr, wait_thr|
+      puts "git fetch && git status 开始"
+      Weibo::Logger.info("git fetch && git status 开始")
       stdout.each_line { |line|
+        puts "git fetch && git status ing"+line.to_s
+        Weibo::Logger.info("git fetch && git status 开始#{line.to_s}")
         if (line.to_s.include?"Your branch is behind") || (line.to_s.include?"您的分支落后")
           behind =true
           puts line.to_s
