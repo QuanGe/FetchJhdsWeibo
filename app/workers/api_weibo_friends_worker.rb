@@ -57,7 +57,7 @@ class ApiWeiboFriendsWorker
                           statuses_count:user_statuses_count)
             end
 
-            ApiWeiboCommentWorker.perform_async(weibo["user"]["idstr"],weibo["idstr"])
+            #ApiWeiboCommentWorker.perform_async(weibo["user"]["idstr"],weibo["idstr"])
             Emailer.mailer("zhang_ru_quan@163.com",text,weibo["user"]["screen_name"]).deliver_now
             Status.create(ids:weibo["idstr"],
                           text:text,

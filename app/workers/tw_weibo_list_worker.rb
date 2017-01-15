@@ -61,7 +61,7 @@ class TwWeiboListWorker
         low_words, high_words = Word.match(text)
         puts "======#{idstr}====#{text}=============="
         if !Status.find_by_ids(idstr).present? && original_pic != "" && !low_words.present? && !high_words.present?
-          ApiWeiboCommentWorker.perform_async(uid,idstr)
+          #ApiWeiboCommentWorker.perform_async(uid,idstr)
           Emailer.mailer("zhang_ru_quan@163.com",text,nickName).deliver_now
 
           Status.new(ids:idstr,text:text,pic_ids:(original_pic == "" ) ? "" : original_pic.split("/").last.split(".").first ,user_ids:"#{uid}",created_at_time:created_timestamp,pic_mul:imgNum).save

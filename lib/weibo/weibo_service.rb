@@ -50,7 +50,7 @@ module Weibo
         tmp = 1
         weibos.each do |weibo|
           tmp = tmp + 30
-          ApiWeiboCommentWorker.perform_in(tmp.seconds,weibo.user_ids,weibo.ids)
+          #ApiWeiboCommentWorker.perform_in(tmp.seconds,weibo.user_ids,weibo.ids)
         end
         puts "---------------------------"
       end
