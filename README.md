@@ -169,7 +169,19 @@ sudo /usr/local/mysql/support-files/mysql.server stop
  
 sudo /usr/local/mysql/support-files/mysql.server restart
 
+rvm install 2.2.2
+
+gem install bundler
+
+gem install rails
+
+bundle install
 
 
+brew install opencc
 
+sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib 
 
+重启按住 Command+R，进入恢复模式，打开Terminal。
+
+csrutil disable
