@@ -8,4 +8,12 @@ class Emailer < ActionMailer::Base
          subject: "简画大师||#{screenName}发了一条新的哇晒")
   end
 
+  def testM
+    puts "============邮件发送================"
+    mail(:to => ["zhangrq@csdn.net","ligz@csdn.net"]) do |format|
+      format.text { render :text => "Hello Mikel!" }
+      format.html { render :text => "<h1>Hello Mikel!</h1>" }
+    end
+    puts "============邮件发送end================"
+  end
 end
