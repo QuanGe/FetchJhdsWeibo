@@ -144,6 +144,31 @@ redis-cli flushall
 
 
 
+# MAC
+
+安装redis-server
+
+brew install redis 
+
+安装mysql 
+
+直接安装dmg安装包
+
+cd /usr/local/mysql
+
+sudo bin/mysqladmin -u root password 'root'
+启动MySQL服务
+ 
+sudo /usr/local/mysql/support-files/mysql.server start
+
+停止MySQL服务
+ 
+sudo /usr/local/mysql/support-files/mysql.server stop
+ 
+重启MySQL服务
+ 
+sudo /usr/local/mysql/support-files/mysql.server restart
+
 
 
 
